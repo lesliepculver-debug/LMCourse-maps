@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Rhetorical Praxis — Traditional Memo (Linear)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,800;1,8..60,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --paper: #fbf8f3;
+    --paper-2: #f4ede0;
+    --rule: #2a2520;
+
+    /* Cool accents for navigation / title — deep teal harmonizes with the issue color */
+    --red: #2a8a96;          /* arrow + title accent — deep teal */
+    --red-dark: #1c6770;
+
+    /* ISSUE — bright teal #57c1cf */
+    --orange: #57c1cf;
+    --orange-soft: #d6eef2;
+
+    /* INDUCTIVE — dusty rose (#d291b0) — coolest pink, leans purple */
+    --yellow-bg: #ecc8da;
+    --yellow-deep: #8e3d63;
+    --yellow-circle: #d291b0;
+
+    /* ANALOGICAL — vivid coral (#fb8497) — brightest, leans red-pink */
+    --green-bg: #ffc9d0;
+    --green-deep: #b62c44;
+    --green-tri: #fb8497;
+
+    /* DEDUCTIVE — peach salmon (#f6897c) — warmest, leans orange */
+    --indigo-bg: #fbcfc4;
+    --indigo-deep: #a13a2a;
+    --indigo-accent: #f6897c;
+
+    /* COUNTER / POLICY accent — warm peach orange (#f7a068) */
+    --counter: #f7a068;
+    --counter-deep: #b8632e;
+    --counter-bg: #fde7d4;
+
+    /* CONCLUSION — golden yellow (#ffd85b) */
+    --conclusion-bg: #ffd85b;
+    --conclusion-deep: #6e5400;
+
+    --watermark: rgba(28, 103, 112, 0.07);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #1f3438;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    padding: 32px 0 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 15% 5%, rgba(87,193,207,0.06), transparent 45%),
+      radial-gradient(ellipse at 85% 95%, rgba(247,160,104,0.05), transparent 45%);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 56px;
+  }
+
+  /* ───────── Watermark ───────── */
+  .watermark {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .watermark span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-32deg);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    font-size: 380px;
+    letter-spacing: 0.04em;
+    color: var(--watermark);
+    white-space: nowrap;
+    line-height: 0.9;
+    user-select: none;
+  }
+  .watermark span.lower {
+    top: auto;
+    bottom: 4%;
+    left: 8%;
+    transform: rotate(-32deg);
+    font-size: 110px;
+    color: rgba(40,30,20,0.07);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ───────── Header ───────── */
+  .header {
+    position: relative;
+    z-index: 2;
+    padding: 44px 56px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .header .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #4a4137;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    margin: 0;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+  }
+  .header h1 .praxis {
+    color: var(--red);
+    font-size: 54px;
+    display: block;
+    font-style: italic;
+    font-weight: 700;
+  }
+  .header h1 .memo {
+    color: var(--ink);
+    font-size: 78px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .header .subline {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .header .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #4a3f30;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    max-width: 260px;
+    line-height: 1.5;
+  }
+  .header .meta strong { color: var(--ink); }
+
+  /* ───────── Discussion bar ───────── */
+  .discussion-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 56px 24px;
+  }
+  .arrow {
+    flex: 1;
+    height: 38px;
+    position: relative;
+  }
+  .arrow svg { width: 100%; height: 100%; display: block; }
+  .discussion-label {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .discussion-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #4a3f30;
+    text-transform: uppercase;
+  }
+
+  /* ───────── Content area ───────── */
+  .content {
+    position: relative;
+    z-index: 2;
+    padding: 0 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* ───────── Issue heading block ───────── */
+  .issue {
+    position: relative;
+    background: #fff;
+    border: 2.5px solid var(--orange);
+    border-radius: 2px;
+    padding: 14px 22px 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 4px 4px 0 var(--orange-soft);
+  }
+  .issue .marker {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--orange);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    min-width: 36px;
+  }
+  .issue .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .issue .text {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 15.5px;
+    color: var(--ink);
+    line-height: 1.4;
+    text-decoration: underline;
+    text-decoration-color: rgba(232,119,46,0.5);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .issue-broad { align-items: flex-start; }
+  .issue-broad .marker { padding-top: 4px; }
+  .issue-broad .issue-body { flex: 1; }
+  .issue .issue-note {
+    margin-top: 12px;
+    padding: 10px 12px 11px;
+    background: rgba(232,119,46,0.08);
+    border-left: 3px solid var(--orange);
+    border-radius: 2px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #4a3a2a;
+  }
+  .issue .issue-note .issue-note-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    flex-shrink: 0;
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  /* ───────── Reasoning blocks (shared) ───────── */
+  .block {
+    position: relative;
+    border-radius: 4px;
+    padding: 18px 22px 16px;
+    overflow: hidden;
+  }
+  .block .block-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .block .canon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .block h3 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    font-size: 18px;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .block h3::after { content: '.'; }
+  .block .lede {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .block .body {
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .block .body p { margin: 0 0 8px; }
+  .block .sub {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-block;
+    margin-right: 6px;
+  }
+  .block ul {
+    margin: 4px 0 8px;
+    padding-left: 18px;
+  }
+  .block li { margin-bottom: 3px; }
+  .block .note {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(0,0,0,0.18);
+    display: flex;
+    gap: 10px;
+  }
+  .block .note .note-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  /* ───────── Inductive (yellow) ───────── */
+  .inductive {
+    background: var(--yellow-bg);
+    border-left: 6px solid var(--yellow-deep);
+  }
+  .inductive .canon {
+    background: var(--yellow-deep);
+    color: #2a2000;
+  }
+  .inductive h3 { color: #5a1f3e; }
+  .inductive .note .note-tag { color: var(--yellow-deep); }
+  .inductive .deco {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: var(--yellow-circle);
+    opacity: 0.18;
+    right: -80px;
+    top: -80px;
+    z-index: 0;
+  }
+  .inductive .deco-2 {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--yellow-circle);
+    opacity: 0.15;
+    left: 30%;
+    bottom: -60px;
+    z-index: 0;
+  }
+  .inductive > * { position: relative; z-index: 1; }
+
+  /* Inductive grid for CONSTRUCTION/CONTENT/RULE TYPE */
+  .triad {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .triad .cell {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(142,61,99,0.30);
+    border-radius: 3px;
+    padding: 10px 12px 11px;
+  }
+  .triad.single { grid-template-columns: 1fr; }
+  .triad.single .cell { padding: 14px 18px 16px; }
+  .triad .cell .key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--yellow-deep);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .triad .cell .qq {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: #3a1a2a;
+    margin-bottom: 7px;
+    display: block;
+  }
+  .triad .cell .det {
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+  .triad .cell .det strong {
+    font-weight: 700;
+  }
+  .triad .cell ul { padding-left: 14px; margin: 4px 0; font-size: 10.5px; }
+  .triad .cell li { margin-bottom: 3px; line-height: 1.45; }
+
+  /* ───────── Analogical (green) ───────── */
+  .analogical {
+    background: var(--green-bg);
+    border-left: 6px solid var(--green-deep);
+  }
+  .analogical .canon {
+    background: var(--green-deep);
+    color: #f0fff0;
+  }
+  .analogical h3 { color: #6b1525; }
+  .analogical .note .note-tag { color: var(--green-deep); }
+  .analogical .deco {
+    position: absolute;
+    right: -30px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+    border-bottom: 160px solid var(--green-tri);
+    opacity: 0.22;
+    transform: rotate(18deg);
+    z-index: 0;
+  }
+  .analogical > * { position: relative; z-index: 1; }
+  .analogical .row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 10px 14px;
+    align-items: baseline;
+    padding: 6px 0;
+    border-top: 1px dotted rgba(74,122,72,0.35);
+  }
+  .analogical .row:first-of-type { border-top: none; padding-top: 0; }
+  .analogical .row .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    font-weight: 500;
+  }
+  .analogical .row .v {
+    font-size: 11.5px;
+    line-height: 1.55;
+  }
+  .analogical .row .v em {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+  }
+  .analogical .struct {
+    margin-top: 4px;
+  }
+  .analogical .struct .si {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 12px;
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 4px 0;
+  }
+  .analogical .struct .si .tag {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-style: italic;
+    color: #2a4a28;
+  }
+
+  /* ───────── Deductive (indigo) ───────── */
+  .deductive {
+    background: var(--indigo-bg);
+    border-left: 6px solid var(--indigo-deep);
+  }
+  .deductive .canon {
+    background: var(--indigo-deep);
+    color: #f0f4ff;
+  }
+  .deductive h3 { color: #5a1a0e; }
+  .deductive .note .note-tag { color: var(--indigo-deep); }
+  /* Counter / Policy accent in Deductive */
+  .deductive .note:has(.note-tag) {}
+  .deductive .note .note-tag[data-kind="counter"],
+  .deductive .note .note-tag[data-kind="policy"] {
+    color: var(--counter-deep);
+  }
+  .deductive .deco {
+    position: absolute;
+    left: -50px;
+    bottom: -50px;
+    width: 200px;
+    height: 200px;
+    background: var(--indigo-accent);
+    opacity: 0.18;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .deductive .deco-2 {
+    position: absolute;
+    right: 15%;
+    top: -30px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--indigo-deep);
+    opacity: 0.15;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .deductive > * { position: relative; z-index: 1; }
+
+  /* Counter/Policy notes within Deductive get a peach tint */
+  .deductive .note:has(.note-tag[data-kind="counter"]),
+  .deductive .note:has(.note-tag[data-kind="policy"]) {
+    background: rgba(247,160,104,0.18);
+    margin-left: -8px;
+    margin-right: -8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(184,99,46,0.4);
+    border-radius: 2px;
+  }
+
+  .deductive ol {
+    counter-reset: deduct;
+    list-style: none;
+    padding-left: 0;
+    margin: 6px 0 0;
+  }
+  .deductive ol li {
+    counter-increment: deduct;
+    position: relative;
+    padding: 8px 4px 8px 38px;
+    border-top: 1px dotted rgba(47,63,122,0.3);
+    font-size: 11.5px;
+    line-height: 1.55;
+  }
+  .deductive ol li:first-child { border-top: none; }
+  .deductive ol li::before {
+    content: counter(deduct, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--indigo-deep);
+    letter-spacing: 0.06em;
+  }
+
+  /* ───────── Section divider for narrow issues ───────── */
+  .narrow-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 10px 0 0;
+    color: #4a3f30;
+  }
+  .narrow-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.2), transparent);
+  }
+  .narrow-divider .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ───────── Conclusion footer ───────── */
+  .conclusion {
+    position: relative;
+    z-index: 2;
+    margin: 28px 56px 0;
+    padding: 22px 26px;
+    background: rgba(255,216,91,0.18);
+    color: #2b2000;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border: 2.5px solid #d4a800;
+    box-shadow: 4px 4px 0 rgba(180,140,0,0.18);
+  }
+  .conclusion .arrow-down {
+    width: 40px; height: 40px;
+    flex-shrink: 0;
+    color: #1c6770;
+  }
+  .conclusion h2 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    color: #1f1700;
+  }
+  .conclusion .conc-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(58,44,0,0.75);
+    margin-left: auto;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* ───────── Footer credit ───────── */
+  .credit {
+    position: relative;
+    z-index: 2;
+    margin-top: 14px;
+    padding: 0 56px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5a5044;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ───────── Canon strip ───────── */
+  .canon-strip {
+    position: relative; z-index: 2;
+    margin: 18px 56px 6px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 14px;
+  }
+  .cs {
+    position: relative;
+    padding: 12px 16px 12px 18px;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    row-gap: 2px;
+    align-items: center;
+  }
+  .cs-invention {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(40,30,20,0.08);
+  }
+  .cs-arrangement {
+    background: #fff;
+    border: 1.5px dashed var(--ink);
+  }
+  .cs .cs-tag {
+    grid-row: 1 / span 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #4a3f30;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    border-right: 1px solid rgba(0,0,0,0.15);
+    padding-right: 10px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cs .cs-name {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .cs .cs-desc {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #5a4f40;
+    grid-column: 2;
+  }
+  .cs .cs-list {
+    grid-column: 2;
+    grid-row: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 4px;
+  }
+
+  /* ───────── Legend strip ───────── */
+  .legend {
+    position: relative; z-index: 2;
+    margin: 4px 56px 18px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .legend .li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4a4137;
+  }
+  .legend .li-canon {
+    color: #4a3f30;
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+  }
+
+  .legend .sw {
+    width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0;
+  }
+  .legend .sw.o { background: var(--orange); border: 2px solid var(--red-dark); }
+  .legend .sw.y { background: var(--yellow-circle); border-left: 5px solid var(--yellow-deep); }
+  .legend .sw.g { background: var(--green-tri); border-left: 5px solid var(--green-deep); }
+  .legend .sw.b { background: var(--indigo-accent); border-left: 5px solid var(--indigo-deep); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Watermark -->
+  <div class="watermark" aria-hidden="true">
+    <span>INVENTION</span>
+    <span class="lower">— canon of —</span>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">Reference Card · Discussion Mapping · Linear v.</div>
+    <h1>
+      <span class="praxis">Rhetorical Praxis</span>
+      <span class="memo">Traditional Memo</span>
+    </h1>
+    <div class="subline">
+      <div class="meta">
+        A vertical map of the <strong>Discussion</strong> section of a predictive memo — Broad Issue → Narrow Issues → Conclusion.
+      </div>
+      <div class="meta" style="text-align:right;">
+        Watermark <strong>“INVENTION”</strong> = the canon at play<br/>
+        across all reasoning blocks below.
+      </div>
+    </div>
+  </header>
+
+  <!-- Canon overlay strip — shows what canon is doing the work -->
+  <div class="canon-strip">
+    <div class="cs cs-invention">
+      <span class="cs-tag">Canon I</span>
+      <span class="cs-name">Invention</span>
+      <span class="cs-desc">finds the substance — the rule, the cases, the application</span>
+      <span class="cs-list">Inductive · Analogical · Deductive</span>
+    </div>
+    <div class="cs cs-arrangement">
+      <span class="cs-tag">Canon II</span>
+      <span class="cs-name">Arrangement</span>
+      <span class="cs-desc">orders that substance — large- &amp; small-scale</span>
+      <span class="cs-list">I.&nbsp;&nbsp;A.&nbsp;&nbsp;B.&nbsp;&nbsp;…</span>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="li"><span class="sw o"></span> Issue Heading <span class="li-canon">↳ Arrangement</span></div>
+    <div class="li"><span class="sw y"></span> Inductive — Rule <span class="li-canon">↳ Invention</span></div>
+    <div class="li"><span class="sw g"></span> Analogical — Analysis <span class="li-canon">↳ Invention</span></div>
+    <div class="li"><span class="sw b"></span> Deductive — Application <span class="li-canon">↳ Invention</span></div>
+  </div>
+
+  <!-- Discussion bar with arrow -->
+  <div class="discussion-bar">
+    <div class="discussion-tag">START&nbsp;↓</div>
+    <div class="arrow">
+      <svg viewBox="0 0 600 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ah" markerWidth="14" markerHeight="14" refX="6" refY="7" orient="auto">
+            <polygon points="0 0, 12 7, 0 14" fill="#2a8a96"/>
+          </marker>
+        </defs>
+        <line x1="0" y1="20" x2="585" y2="20" stroke="#2a8a96" stroke-width="6" stroke-linecap="butt" marker-end="url(#ah)"/>
+      </svg>
+    </div>
+    <div class="discussion-label">Discussion</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ─────────── BROAD ISSUE ─────────── -->
+    <div class="issue issue-broad" data-screen-label="01 Broad Issue heading">
+      <div class="marker">I.</div>
+      <div class="issue-body">
+        <div class="label">Broad Issue · Heading <span style="color:#6b5f4f;letter-spacing:0.18em;">↳ Arrangement (large-scale)</span></div>
+        <div class="text">BROAD ISSUE that determines the organization for the memo.</div>
+        <div class="issue-note">
+          <span class="issue-note-tag">Heading note</span>
+          <span>Rule type and court treatment determine how much explanation each issue requires — and in what sequence. The preliminary structure of your headings may need adjustment once rule treatment becomes clear.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inductive (Broad) -->
+    <section class="block inductive" data-screen-label="02 Inductive — Broad rule">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="deco-2" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Inductive Reasoning</h3>
+      </div>
+      <p class="lede">
+        Every issue MUST have a RULE. In a multi-issue memo, this should be the <strong>BROAD rule(s)</strong> that govern the BROAD legal issue — statute, common law, etc. You may have to start broad (e.g., <em>Contract</em>) and funnel down to the elements at issue (e.g., <em>offer, acceptance, consideration</em>); or start with the statute and indicate interpretive common law. <em>This rule section sets the roadmap for the forthcoming NARROW rules.</em>
+      </p>
+
+      <div class="triad">
+        <div class="cell">
+          <span class="key">Construction</span>
+          <span class="qq">Where does this rule sit in the legal hierarchy?</span>
+          <div class="det">
+            General hierarchy (constitution → statute → common law), but consider <strong>general rule</strong> and <strong>defenses / exceptions</strong>, etc., and how courts discuss rules.
+          </div>
+        </div>
+
+        <div class="cell">
+          <span class="key">Content</span>
+          <span class="qq">What is the nature of this rule?</span>
+          <div class="det">
+            <ul>
+              <li><strong>If statute:</strong> does plain language of the statute define the term, or do you need a definition from common law (<em>operative</em>)?</li>
+              <li><strong>If common law:</strong> are there interpretations from case law (<em>operative</em>)? Do courts treat the term as ambiguous (<em>regulative</em>)? Do courts invoke purpose (<em>optative</em>)?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cell">
+          <span class="key">Rule Type</span>
+          <span class="qq">How do I explain it given its structure?</span>
+          <div class="det">
+            <ul>
+              <li><strong>Element-based:</strong> all elements at issue? Yes — locate rule language for each element and any sub-elements. No — acknowledge briefly. Interpreted term: research briefly.</li>
+              <li><strong>Factors-based:</strong> per court, is any factor more important than others? Judicial weighing may signal policy.</li>
+              <li><strong>Policy-based:</strong> may overlap above — distinction is whether purpose drives interpretation. Such rules require different treatment. Emphasize <em>why</em> the rule exists.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─────────── NARROW ISSUE A ─────────── -->
+    <div class="narrow-divider">
+      <span class="tag">↓ Narrow Issue A</span>
+      <span class="line"></span>
+      <span class="tag">resolve to conclude on Broad</span>
+    </div>
+
+    <div class="issue" data-screen-label="03 Narrow Issue A heading">
+      <div class="marker">A.</div>
+      <div>
+        <div class="label">Narrow Issue · Sub-heading <span style="color:#6b5f4f;letter-spacing:0.18em;">↳ Arrangement (small-scale)</span></div>
+        <div class="text">NARROW ISSUE #1 that must be analyzed / resolved to conclude on the Broad issue.</div>
+      </div>
+    </div>
+
+    <!-- Inductive A -->
+    <section class="block inductive" data-screen-label="04 Inductive — Narrow A">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Inductive Reasoning</h3>
+      </div>
+      <p class="lede">
+        Every issue MUST have a RULE. Here, this is the <strong>NARROW rule(s)</strong> that govern <strong>Narrow Issue #1</strong> (e.g., <em>offer</em>) — i.e., "padding."
+      </p>
+
+      <div class="triad single">
+        <div class="cell">
+          <span class="key">Content</span>
+          <span class="qq">What bucket does this element fall into?</span>
+          <div class="det">
+            <p style="margin: 0 0 10px; font-size: 11px; line-height: 1.55;">The umbrella rule is established. You are now reporting what research reveals about this specific element — <em>not</em> reconstructing the framework.</p>
+            <ul>
+              <li><strong>Plain terms bucket</strong> (<em>operative</em>): state the kinds of facts or characteristics that satisfy the rule.</li>
+              <li><strong>Ambiguous terms bucket</strong> (<em>regulative</em>): the analogical will show the range of interpretations courts have found valid.</li>
+              <li><strong>Purpose-driven bucket</strong> (<em>optative</em>): the analogical will demonstrate the legislative rationale in action.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Analogical A -->
+    <section class="block analogical" data-screen-label="05 Analogical — Narrow A">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Analogical Reasoning</h3>
+      </div>
+      <p class="lede">
+        How can we help the court solve the problem by using <em>precedent</em>? This is <strong>stare decisis</strong> in action. We use precedent to illustrate <em>how</em> the rule works — construct the case discussion purposefully, mindful of the interpretations the court has already found valid, and consider how many cases we need to illustrate how the rule has / can work.
+      </p>
+
+      <div class="row">
+        <div class="k">Goal</div>
+        <div class="v">Use precedent to educate the court on the validity of rule application. Determine which case is most helpful — and why. Precedent signals <em>stare decisis</em>.</div>
+      </div>
+
+      <div class="row">
+        <div class="k">Approach</div>
+        <div class="v">
+          <strong>Fact-based (operative) rule</strong> — reliance on precedent may be minimal; one case may suffice.<br/>
+          <strong>Ambiguous / Policy (regulative · optative)</strong> — requires more explanation.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="k">Structure</div>
+        <div class="v struct">
+          <div class="si"><span class="tag">Synthesized</span><span>Multiple cases helpful to show the range of facts that can satisfy the rule.</span></div>
+          <div class="si"><span class="tag">Unsynthesized</span><span>Single case for various reasons — e.g., facts on point; case marks a policy origin or the relevant starting point of law from which courts have since departed.</span></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Deductive A -->
+    <section class="block deductive" data-screen-label="06 Deductive — Narrow A">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="deco-2" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Deductive Reasoning</h3>
+      </div>
+      <p class="lede">
+        Use the precedent from analogical reasoning to map the legal reasoning <em>from</em> the precedent <em>onto</em> our client's facts — to help the court solve the problem.
+      </p>
+
+      <ol>
+        <li>What did my analogical cases show that mattered to the courts — <strong>specific facts? interpreted terms? rule policy?</strong></li>
+        <li>Citing back to the analogical case(s), how do my client's facts <strong>explicitly address the same aspects</strong> the cases focused on?</li>
+        <li>Does my application <strong>justify the conclusion</strong> by showing my facts satisfy what the analogical backing established?</li>
+      </ol>
+
+      <div class="note">
+        <span class="note-tag">Note</span>
+        <span>Application is effective <strong>only</strong> if it addresses what your analogical reasoning established.</span>
+      </div>
+      <div class="note">
+        <span class="note-tag" data-kind="counter">Counter</span>
+        <span>Determine whether client facts raise an opposing argument or qualifier that requires a rebuttal; look to judicial opinions to identify counters.</span>
+      </div>
+      <div class="note" style="border-top:none;padding-top:0;margin-top:6px;">
+        <span class="note-tag" data-kind="policy">Policy</span>
+        <span>Will <em>public policy</em> strengthen the resolution — i.e., is the outcome not only legally correct, but does it further what the court identifies as important?</span>
+      </div>
+    </section>
+
+    <!-- ─────────── NARROW ISSUE B ─────────── -->
+    <div class="narrow-divider">
+      <span class="tag">↓ Narrow Issue B</span>
+      <span class="line"></span>
+      <span class="tag">resolve to conclude on Broad</span>
+    </div>
+
+    <div class="issue" data-screen-label="07 Narrow Issue B heading">
+      <div class="marker">B.</div>
+      <div>
+        <div class="label">Narrow Issue · Sub-heading <span style="color:#6b5f4f;letter-spacing:0.18em;">↳ Arrangement (small-scale)</span></div>
+        <div class="text">NARROW ISSUE #2 that must be analyzed / resolved to conclude on the Broad issue.</div>
+      </div>
+    </div>
+
+    <!-- Inductive B -->
+    <section class="block inductive" data-screen-label="08 Inductive — Narrow B">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Inductive Reasoning</h3>
+      </div>
+      <p class="lede">
+        Every issue MUST have a RULE. Here, this is the <strong>NARROW rule(s)</strong> that govern <strong>Narrow Issue #2</strong> (e.g., <em>acceptance</em>) — i.e., "padding."
+      </p>
+
+      <div class="triad single">
+        <div class="cell">
+          <span class="key">Content</span>
+          <span class="qq">What bucket does this element fall into?</span>
+          <div class="det">
+            <p style="margin: 0 0 10px; font-size: 11px; line-height: 1.55;">The umbrella rule is established. You are now reporting what research reveals about this specific element — <em>not</em> reconstructing the framework.</p>
+            <ul>
+              <li><strong>Plain terms bucket</strong> (<em>operative</em>): state the kinds of facts or characteristics that satisfy the rule.</li>
+              <li><strong>Ambiguous terms bucket</strong> (<em>regulative</em>): the analogical will show the range of interpretations courts have found valid.</li>
+              <li><strong>Purpose-driven bucket</strong> (<em>optative</em>): the analogical will demonstrate the legislative rationale in action.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Analogical B -->
+    <section class="block analogical" data-screen-label="09 Analogical — Narrow B">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Analogical Reasoning</h3>
+      </div>
+      <p class="lede">
+        How can we help the court solve the problem by using <em>precedent</em>? This is <strong>stare decisis</strong> in action. Use precedent to illustrate how the rule works — construct the case discussion purposefully, mindful of the interpretations the court has already found valid, and consider how many cases are needed.
+      </p>
+
+      <div class="row">
+        <div class="k">Goal</div>
+        <div class="v">Use precedent to educate the court on the validity of rule application. Determine which case is most helpful — and why. Precedent signals <em>stare decisis</em>.</div>
+      </div>
+
+      <div class="row">
+        <div class="k">Approach</div>
+        <div class="v">
+          <strong>Fact-based (operative) rule</strong> — minimal reliance; one case may suffice.<br/>
+          <strong>Ambiguous / Policy (regulative · optative)</strong> — requires more explanation.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="k">Structure</div>
+        <div class="v struct">
+          <div class="si"><span class="tag">Synthesized</span><span>Multiple cases to show the range of facts that satisfy the rule.</span></div>
+          <div class="si"><span class="tag">Unsynthesized</span><span>Single case — facts on point, policy origin point, or the relevant starting point of the law.</span></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Deductive B -->
+    <section class="block deductive" data-screen-label="10 Deductive — Narrow B">
+      <div class="deco" aria-hidden="true"></div>
+      <div class="deco-2" aria-hidden="true"></div>
+      <div class="block-head">
+        <span class="canon">Canon · Invention</span>
+        <h3>Deductive Reasoning</h3>
+      </div>
+      <p class="lede">
+        Use the precedent from analogical reasoning to map the legal reasoning <em>from</em> the precedent <em>onto</em> our client's facts — to help the court solve the problem.
+      </p>
+
+      <ol>
+        <li>What did my analogical cases show that mattered to the courts — <strong>specific facts? interpreted terms? rule policy?</strong></li>
+        <li>Citing back to the analogical case(s), how do my client's facts <strong>explicitly address the same aspects</strong> the cases focused on?</li>
+        <li>Does my application <strong>justify the conclusion</strong> by showing my facts satisfy what the analogical backing established?</li>
+      </ol>
+
+      <div class="note">
+        <span class="note-tag">Note</span>
+        <span>Application is effective <strong>only</strong> if it addresses what your analogical reasoning established.</span>
+      </div>
+      <div class="note">
+        <span class="note-tag" data-kind="counter">Counter</span>
+        <span>Determine whether client facts raise an opposing argument or qualifier that requires a rebuttal; look to judicial opinions to identify counters.</span>
+      </div>
+      <div class="note" style="border-top:none;padding-top:0;margin-top:6px;">
+        <span class="note-tag" data-kind="policy">Policy</span>
+        <span>Will <em>public policy</em> strengthen the resolution — i.e., is the outcome not only legally correct, but does it further what the court identifies as important?</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Conclusion -->
+  <div class="conclusion" data-screen-label="11 Conclusion">
+    <svg class="arrow-down" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="20" y1="2" x2="20" y2="32" stroke="currentColor" stroke-width="5"/>
+      <polygon points="6,28 34,28 20,40" fill="currentColor"/>
+    </svg>
+    <h2>Conclusion</h2>
+    <div class="conc-meta">
+      Resolves the Broad Issue<br/>
+      via the resolved Narrow Issues
+    </div>
+  </div>
+
+  <div class="credit">
+    <span>The Rhetorical Praxis · Linear / Memo-Mapped</span>
+    <span>© 2018, 2026 Leslie P. Culver</span>
+  </div>
+
+</div>
+
+</body>
+</html>
